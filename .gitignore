@@ -1,0 +1,51 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# API Keys and Credentials
+api_key.txt
+credentials.json
+token.json
+
+# Output files
+outputs/
+scraped_jobs.csv
+scraped_jobs_fixed.csv
+temp_resume.*
+
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Compiled LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.out
+

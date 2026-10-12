@@ -1,0 +1,433 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=0.1 cm,
+    bottom=0.1 cm,
+    left=0.1 cm,
+    right=0.1 cm
+]{geometry}
+
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{primaryColor}{RGB}{0, 79, 144}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Ronit Gandhi's CV},
+    pdfauthor={Ronit Gandhi},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage{setspace}
+\setstretch{0.7}
+\usepackage[pscoord]{eso-pic}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+% Ensuring machine readability
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+% Style adjustments
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0cm}
+\makeatletter
+\let\ps@customFooterStyle\ps@plain
+\patchcmd{\ps@customFooterStyle}{\thepage}{}{}{}
+\makeatother
+\pagestyle{customFooterStyle}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing{\section}{-1pt}{0.3 cm}{0.2 cm}
+
+\renewcommand\labelitemi{$\circ$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,b
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0.2 cm + 0.00001 cm
+    }{
+        0.2 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\newcommand{\placelastupdatedtext}{%
+  \AddToShipoutPictureFG*{
+    \put(\LenToUnit{\paperwidth-2 cm-0.2 cm+0.05cm},\LenToUnit{\paperheight-1.0 cm}){\vtop{{\null}\makebox[0pt][c]{\small\color{gray}\textit{}}}}
+  }
+}
+
+\let\hrefWithoutArrow\href
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+\begin{document}
+
+\placelastupdatedtext
+
+\begin{header}
+    \textbf{\fontsize{24 pt}{24 pt}\selectfont Ronit Gandhi}
+
+    \vspace{0.3 cm}
+
+    \normalsize
+    \mbox{{\color{black}\footnotesize\faMapMarker*}\hspace*{0.12cm}New Jersey}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{mailto:ronit.gandhi@rutgers.edu}{\color{black}{\footnotesize\faEnvelope[regular]}\hspace*{0.12cm}ronit.gandhi@rutgers.edu}}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{tel:+1-732-470-6368}{\color{black}{\footnotesize\faPhone*}\hspace*{0.13cm}+1 732 470 6368}}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/ronit-gandhi-5a65941aa/}{\color{black}{\footnotesize\faLinkedinIn}\hspace*{0.12cm}www.linkedin.com/in/ronit-gandhi-5a65941aa}}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{https://github.com/RonitGandhi}{\color{black}{\footnotesize\faGithub}\hspace*{0.12cm}RonitGandhi}}%
+\end{header}
+
+
+\section{Education}
+
+\begin{twocolentry}{\textit{May 2025}}
+    \textbf{Rutgers University} \\
+    \textit{M.S. in Statistics \& Data Science} \\
+    {\footnotesize \textit{Relevant Coursework: Machine Learning, NLP, Statistical Modeling, Database Management}}
+\end{twocolentry}
+
+\begin{twocolentry}{\textit{May 2023}}
+    \textbf{University of Mumbai} \\
+    \textit{B.Tech. in Electronics Engineering, Minor in Computer Science}
+\end{twocolentry}
+
+% \section{Work Experience}
+
+% \begin{twocolentry}{
+%     \textit{New Brunswick, NJ}\\
+%     \textit{Jun 2024 – Present}
+% }
+%     \textbf{Machine Learning Engineer} \\
+%     \textit{Particulate Systems Laboratory, Rutgers School of Engineering}
+% \end{twocolentry}
+
+% \begin{onecolentry}
+
+% \begin{highlights}
+
+%   \item Built and validated statistical \& ML models (Random Forests, GLMs, LSTM, Neural Networks) in Python \& MATLAB for biomass forecasting (R²\textgreater 0.92), with calibrated prediction intervals.  
+%   \item Integrated probabilistic forecasts from complex datasets into a real-time MPC framework—using uncertainty quantification to automate setpoints and boost yield efficiency by 15\%. 
+  
+%   \item Applied analytical thinking through transfer learning and Bayesian hyperparameter optimization (Optuna) to enhance model robustness under variability and sensor noise.
+%   \item Engineered hybrid PBE–ML surrogates for granulation control, achieving 4× faster simulations while preserving key metrics (d\textsubscript{43}, d\textsubscript{width}, F\textsubscript{dmass}).  
+%   \item Took a pragmatic approach for R\&D of NLP pipelines—fuzzy matching \& TF-IDF for conflict-of-interest detection across 10K+ proposals, and fine-tuned BART/T5/Pegasus for summarization (ROUGE-2+12–15\%). 
+%   \item Collaborated with cross-functional researchers to co-author two peer-reviewed papers (Control Eng. Practice, Array) and lead an LLM-summarization manuscript, effectively communicating statistical findings (ANOVA, confidence intervals).
+
+
+
+% \end{highlights}
+% \end{onecolentry}
+
+% \vspace{0.2 cm}
+
+% \begin{twocolentry}{
+%     \textit{New Brunswick, NJ}\\
+%     \textit{Jun 2024 – Aug 2024}
+% }
+%     \textbf{Research Assistant - Data Scientist} \\
+%     \textit{Under Prof. Jerry Kim, Rutgers Business School}
+% \end{twocolentry}
+
+% \begin{onecolentry}
+% \begin{highlights}
+%     \item Applied machine learning methods using Python, R, and EconML to analyze large baseball performance datasets. Maintained scalable data pipelines and documented reproducible research workflows.
+%     \item Effectively communicated statistical insights to stakeholders, demonstrating people skills \& enabling strategic decisions.
+% \end{highlights}
+% \end{onecolentry}
+
+% \vspace{0.2 cm}
+\section{Work Experience}
+
+\begin{twocolentry}{
+    \textit{Santa Clara, CA}\\
+    \textit{Aug 2024 – Present}
+}
+    \textbf{Software Engineering Intern} \\
+    \textit{Exo Imaging Inc.}
+\end{twocolentry}
+
+\begin{onecolentry}
+\begin{highlights}
+\item Developed scalable REST APIs using \textbf{Python}, \textbf{Django}, and \textbf{PostgreSQL (pgvector)} for intelligent medical imaging search and retrieval with low-latency performance.
+\item Integrated and fine-tuned \textbf{LLM endpoints (AWS Bedrock: Titan, Nova Pro, Cohere)} for \textbf{text-to-SQL} and semantic search, improving model accuracy and query responsiveness in production.
+\item Deployed and optimized AI workflows on \textbf{AWS (EC2, Lambda, S3, RDS)} with performance tuning and observability tools to ensure seamless, scalable model integration.
+
+
+
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{twocolentry}{
+    \textit{New Brunswick, NJ}\\
+    \textit{Jun 2024 – July 2025}
+}
+    \textbf{Machine Learning Engineer} \\
+    \textit{Particulate Systems Laboratory, Rutgers School of Engineering}
+\end{twocolentry}
+
+\begin{onecolentry}
+\begin{highlights}
+  \item Built and validated statistical \& ML models (Random Forests, GLMs, LSTM, Neural Networks) in Python \& MATLAB for biomass forecasting (R²\textgreater 0.92).  
+  \item Integrated probabilistic forecasts into a real-time MPC framework, using uncertainty quantification to boost yield efficiency by 15\%.  
+  \item Applied Bayesian hyperparameter optimization (Optuna) and transfer learning to enhance model robustness under variability and sensor noise.
+  \item Developed hybrid PBE–ML surrogates for process control, achieving 4× faster simulations while preserving accuracy of key quality metrics.
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{twocolentry}{
+    \textit{New Brunswick, NJ}\\
+    \textit{Jun 2024 – Aug 2024}
+}
+    \textbf{Research Assistant - Data Scientist} \\
+    \textit{Under Prof. Jerry Kim, Rutgers Business School}
+\end{twocolentry}
+
+\begin{onecolentry}
+\begin{highlights}
+    \item Applied machine learning methods using Python, R, and EconML to analyze large baseball performance datasets. Maintained scalable data pipelines and documented reproducible research workflows.
+    \item Effectively communicated statistical insights to stakeholders, enabling strategic decisions.
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{twocolentry}{
+    \textit{Mumbai, India}\\
+    \textit{Oct 2021 – Jun 2022}
+}
+    \textbf{Data Scientist Intern, Google via DKSH Smollan}
+\end{twocolentry}
+
+\begin{onecolentry}
+\begin{highlights}
+    \item Built a Python-based BI tool on GCP (BigQuery, Cloud Functions) with LookerStudio and Selenium scraping, improving data processing efficiency by 40\%.
+    \item Managed cross-functional team \& optimized 40+ Python scripts \& Cloud Functions, cutting query runtimes by 75\% \& accelerating delivery by 30\%.
+\end{highlights}
+\end{onecolentry}
+
+% \begin{twocolentry}{
+%     \textit{Mumbai, India}\\
+%     \textit{Oct 2021 – Jun 2022}
+% }
+%     \textbf{Data Scientist Intern, Google via DKSH Smollan}
+% \end{twocolentry}
+
+% \begin{onecolentry}
+% \begin{highlights}
+%                 \item Built a Python‑based BI tool on GCP (BigQuery, Cloud Functions) with LookerStudio and Selenium scraping, improving data processing efficiency by 40\% and enriching market insights.  
+%                 \item Managed cross-functional team \& optimized 40+ Python scripts \& Cloud Functions, cutting query runtimes by 75\% \& accelerating delivery by 30\%.   
+% \end{highlights}
+% \end{onecolentry}
+
+
+\section*{Projects \hfill \href{https://github.com/RonitGandhi?tab=repositories}{\small\textit{Full List}}}
+
+% \begin{twocolentry}{
+%         \textit{New Brunswick, NJ}    
+            
+%         \textit{Jan 2025 – Apr 2025}}
+%             \textbf{Job Postings Insights Extraction Using NLP and ML \href{https://github.com/RonitGandhi/Job_Postings_Insights}{\faGithub}}
+            
+%             \textit{Independent Project, Rutgers University}
+%         \end{twocolentry}
+
+%         \vspace{0.10 cm}
+%         \begin{onecolentry}
+%             \begin{highlights}
+%                 \item Led analysis of 100K+ job postings using Python ETL, web scraping, and sentence-transformers with UMAP and K-means to segment roles by skill.
+%                 \item Built dashboards and delivered insights that revealed hiring trends and informed strategies projected to cut time-to-hire by 15\%.
+                
+                
+%             \end{highlights}
+%         \end{onecolentry}
+
+\begin{twocolentry}{
+        \textit{Santa Clara, CA}    
+            
+        \textit{Aug 2025 – Sep 2025}}
+            \textbf{Adaptive Recommendation via LLMs \href{https://github.com/RonitGandhi/recommender-system}{\faGithub}}
+            
+            \textit{Independent Project}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Designed and implemented an \textbf{end-to-end adaptive recommendation system} combining user profiles, embeddings, and LLM-based re-ranking for personalized item suggestions.
+                \item Integrated \textbf{FAISS retrieval, SQLite/Postgres, and Cohere embeddings V3} into a scalable pipeline for efficient candidate generation and ranking.
+                \item Built a \textbf{feedback adaptation loop} to update user preferences in real time, improving ranking metrics such as Precision@K and NDCG. Deployed a \textbf{Streamlit application} for interactive user testing and evaluation, enabling rapid prototyping and experimentation under uncertainty.
+            \end{highlights}
+        \end{onecolentry}
+
+% \begin{twocolentry}{
+%         \textit{New Brunswick, NJ}    
+            
+%         \textit{Oct 2024 – Dec 2024}}
+%             \textbf{Multi-Task Learning for Biomedical Named Entity Recognition (BioNER) \href{https://github.com/RonitGandhi/Multi-BIONER}{\faGithub}}
+            
+%             \textit{Independent Project, Rutgers University}
+%         \end{twocolentry}
+
+%         \vspace{0.10 cm}
+%         \begin{onecolentry}
+%             \begin{highlights}
+%                 \item Built shared-base/head transformers for joint BioNER and relation extraction using PyTorch and Hugging Face.
+
+%                 \item Boosted F1-scores on low-resource biomedical datasets through cross-task learning and weighted loss optimization.
+%                 \item Applied regularization, error analysis, and benchmarking to enhance model generalization and task-specific accuracy.
+                
+                
+
+%             \end{highlights}
+%         \end{onecolentry}
+% \begin{twocolentry}{
+%         \textit{New Brunswick, NJ}    
+            
+%             \textit{Jan 2025 – Feb 2025}}
+%             \textbf{Deep Learning for Satellite Image Classification \href{https://github.com/RonitGandhi/DL-for-Image-Classification}{\faGithub}}
+            
+%             \textit{Independent Project, Rutgers University}
+%         \end{twocolentry}
+
+%         \vspace{0.10 cm}
+%         \begin{onecolentry}
+%             \begin{highlights}
+%                 \item Built \& evaluated custom CNN, ResNet50, \& EfficientNetB3 models for satellite image classification using the EuroSAT dataset.
+%                 \item Applied transfer learning, data augmentation, and model fine-tuning to achieve high accuracy on multiclass image data.
+%                 \item Visualized training curves, confusion matrices, and performed interpretability analysis to assess model performance.
+                
+%             \end{highlights}
+%         \end{onecolentry}
+
+% \begin{twocolentry}{
+    
+%     \textit{Oct 2024 – Dec 2025}}
+%     \textbf{Gold ETF Trading Strategy with Google Trends Data \href{https://github.com/RonitGandhi/GoldTradingStratergy}{\faGithub}}
+    
+%     \textit{Independent Project, Rutgers University}
+% \end{twocolentry}
+
+% \vspace{0.10 cm}
+% \begin{onecolentry}
+%     \begin{highlights}
+%         \item Designed and backtested a hybrid trading strategy for Gold ETFs using momentum indicators (MACD, RSI) and Google Trends data, improving Sharpe ratio by 10\%.
+%         \item Linked search trends (e.g., "gold price") with ETF movements to improve market timing.
+
+
+%     \end{highlights}
+% \end{onecolentry}
+
+        % \begin{twocolentry}{
+        % \textit{New Brunswick, NJ}    
+            
+        % \textit{Jan 2024 – Mar 2024}}
+        %     \textbf{Credit Card Fraud Detection Project \href{https://github.com/RonitGandhi/Credit-Card-Fraud-Detection}{\faGithub}}
+            
+        %     \textit{Independent Project, Rutgers University}
+        % \end{twocolentry}
+
+        % \vspace{0.10 cm}
+        % \begin{onecolentry}
+        %     \begin{highlights}
+        %     \item Addressed 0.172\% fraud rate in 284k transactions using SMOTE and engineered PCA-based features.
+        %     \item Built and tuned Random Forest and XGBoost models to maximize precision and recall.
+        %     \item Developed Python and SQL pipelines for data preprocessing, outlier handling, and validation.
+        %     \end{highlights}
+
+        % \end{onecolentry}
+    
+
+\section*{Publications}
+\begin{twocolentry}{\textit{Mar 2025}}
+    \textbf{\href{https://doi.org/10.1016/j.conengprac.2024.106198}{
+    1. Machine Learning Model-Based Design and Model Predictive Control 
+    of a Bioreactor for Improved Production of Mammalian Cell-Based Bio-Therapeutics
+    }} \\
+    % \textit{Published in Control Engineering Practice} \\
+    
+\end{twocolentry}
+\section*{Core Skills}
+
+
+\begin{small}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Programming \& Tools:} Python, TypeScript, JavaScript, Node.js, React, Next.js, SQL, Git, Docker, Kubernetes, RESTful APIs
+  \item \textbf{AI \& ML Expertise:} Large Language Models (LLMs), Agentic AI, Generative AI, Retrieval-Augmented Generation (RAG), Model Deployment, Prompt Engineering, Fine-tuning, Reinforcement Learning
+  \item \textbf{Frameworks \& Libraries:} LangChain, LlamaIndex, Hugging Face Transformers, PyTorch, TensorFlow, Scikit-learn, OpenAI API, CrewAI, FastAPI
+  \item \textbf{MLOps \& Infrastructure:} MLflow, Airflow, CI/CD, AWS (SageMaker, Lambda), GCP (Vertex AI), Azure AI Studio, API Orchestration, Monitoring \& Logging
+  \item \textbf{Data Engineering \& Automation:} ETL Pipelines, Data Preprocessing, Vector Databases (Pinecone, FAISS), Prompt Optimization, Real-time Inference
+  \item \textbf{Applied AI Systems:} Voice Agents, Compliance Automation, Back-Office AI Integrations, Workflow Orchestration, Agentic Pipelines
+  \item \textbf{Core Competencies:} Problem Solving, Rapid Prototyping, System Design, Cross-functional Collaboration, High Ownership, Start-up Agility
+\end{itemize}
+\end{small}
+\end{document}
