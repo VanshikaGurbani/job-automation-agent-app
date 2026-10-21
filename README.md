@@ -1,10 +1,10 @@
 # AI Job Application Automation Tool
 
-An intelligent automation tool that scrapes LinkedIn jobs, tailors your resume, generates custom cover letters, and provides job match ratings using **Google Gemini AI** for maximum accuracy and ATS optimization.
+An intelligent automation tool that tailors your resume, generates custom cover letters, and provides job match ratings using **Google Gemini AI** for maximum accuracy and ATS optimization.
 
 ## Features
 
-- 🔍 **LinkedIn Job Scraper**: Automatically scrape job listings and save them to CSV
+- 📝 **Job intake**: Paste a job description or upload a CSV (no job-board scraping)
 - 📝 **AI Resume Tailor**: Fine-tune your resume for each specific job with 90%+ ATS match
 - 🎨 **LaTeX Resume Support**: Upload your LaTeX template - formatting preserved, only Core Skills modified!
 - ✍️ **AI Cover Letter Generator**: Create personalized, keyword-optimized cover letters
@@ -71,10 +71,6 @@ your_api_key_here
 4. Create **Desktop app** credentials
 5. Download the JSON file and save as `credentials.json` in project root
 
-### 5. Chrome WebDriver
-
-The LinkedIn scraper uses Selenium with Chrome WebDriver (auto-installed via webdriver-manager).
-
 ## Usage
 
 ### 1. Run the Streamlit App
@@ -90,27 +86,20 @@ streamlit run app.py
 - For LaTeX: Only the "Core Skills" section will be modified
 - Fill in your contact information
 
-#### Tab 2: Upload Jobs
-- Upload a CSV file with job data (from LinkedIn scraper)
-- Or use the built-in LinkedIn scraper
+#### Tab 2: Add Job / Tab 3: Upload Jobs CSV
+- Paste a job description you are legitimately viewing, or
+- Upload a CSV with columns title, company, location, description, url
 
 #### Tab 3: Process Jobs
 - Select how many jobs to process
 - Enable Google Drive upload (optional)
 - Click "Process Jobs" and watch the magic happen!
 
-### 3. LinkedIn Scraper (Standalone)
-
-```bash
-python linkedin_scraper.py
-```
-
 ## Project Structure
 
 ```
 Job Application Automation/
 ├── app.py                      # Main Streamlit application
-├── linkedin_scraper.py         # LinkedIn job scraper
 ├── llm_client.py               # Google Gemini AI client
 ├── ai_resume_tailor.py         # AI resume tailoring (text formats)
 ├── latex_resume_tailor.py      # LaTeX resume tailoring (Core Skills only)
@@ -129,7 +118,7 @@ Job Application Automation/
 ## How It Works
 
 1. **Upload Resume**: Upload your base resume (PDF, DOCX, or LaTeX)
-2. **Upload Jobs**: Provide job listings via CSV or LinkedIn scraper
+2. **Upload Jobs**: Provide job listings by pasting a description or uploading a CSV
 3. **AI Processing**: For each job, the AI:
    - Analyzes the job description and your resume
    - Calculates a match rating (0-100)
@@ -202,11 +191,6 @@ sudo apt-get install texlive-full
 # Install LaTeX (Windows)
 # Download from https://www.tug.org/texlive/
 ```
-
-### LinkedIn Scraper Issues?
-- Make sure you're logged into LinkedIn in your browser
-- Try uploading a CSV file instead
-- Check Chrome/ChromeDriver compatibility
 
 ## Advanced Configuration
 

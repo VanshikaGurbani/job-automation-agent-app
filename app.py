@@ -8,7 +8,6 @@ import os
 from datetime import datetime
 
 # Import custom modules
-from linkedin_scraper import LinkedInScraper
 from ai_resume_tailor import AIResumeTailor
 from latex_resume_tailor import LaTeXResumeTailor
 from ai_cover_letter import AICoverLetterGenerator
@@ -212,79 +211,49 @@ def tab_upload_resume():
                     st.error("Failed to read resume. Please try another file.")
 
 
-def tab_scrape_jobs():
-    """Tab for scraping LinkedIn jobs"""
-    st.header("🔍 Scrape LinkedIn Jobs")
-    
-    st.warning("⚠️ **Note:** LinkedIn scraping may have ChromeDriver issues on some systems (especially macOS).")
-    st.info("💡 **Recommended:** Use the **'Upload Jobs CSV'** tab instead for better reliability! See `sample_jobs.csv` for template.")
-    
+def tab_add_job():
+    """Tab for pasting a job description by hand"""
+    st.header("📝 Add a Job Description")
+
+    st.info(
+        "Paste the job description from a posting you are legitimately viewing "
+        "(a company careers page, an email from a recruiter, an API you are allowed to use). "
+        "This tool does not scrape job boards."
+    )
+
     col1, col2, col3 = st.columns(3)
-    
     with col1:
-        job_title = st.text_input("Job Title", value="Software Engineer")
-    
+        job_title = st.text_input("Job Title", key="add_job_title")
     with col2:
-        location = st.text_input("Location", value="United States")
-    
+        company = st.text_input("Company", key="add_job_company")
     with col3:
-        num_pages = st.number_input("Number of Pages", min_value=1, max_value=20, value=5)
-    
-    if st.button("Start Scraping"):
-        if not job_title:
-            st.error("Please enter a job title")
-            return
-        
-        with st.spinner("Opening browser... Please log in to LinkedIn when prompted."):
-            scraper = LinkedInScraper(headless=False)
-            
-            try:
-                scraper.setup_driver()
-                scraper.login_prompt()
-                
-                with st.spinner(f"Scraping jobs for '{job_title}' in '{location}'..."):
-                    scraper.scrape_jobs(job_title, location, num_pages)
-                    
-                    if scraper.jobs_data:
-                        scraper.save_to_csv()
-                        st.session_state.jobs_df = pd.DataFrame(scraper.jobs_data)
-                        st.success(f"✓ Scraped {len(scraper.jobs_data)} jobs!")
-                    else:
-                        st.warning("No jobs found. Try different search parameters.")
-            
-            except Exception as e:
-                st.error(f"Error during scraping: {e}")
-                st.info("💡 **Solution:** Try using the 'Upload Jobs CSV' tab instead!")
-                st.info("📖 See `FIX_SCRAPER.md` for detailed troubleshooting steps.")
-                
-                with st.expander("Quick Fix Options"):
-                    st.markdown("""
-                    ### Option 1: Use CSV Upload (Easiest!)
-                    1. Go to **'Upload Jobs CSV'** tab
-                    2. Use `sample_jobs.csv` as a template
-                    3. Add your job listings manually
-                    4. Upload and process!
-                    
-                    ### Option 2: Fix ChromeDriver (macOS)
-                    ```bash
-                    brew install chromedriver
-                    xattr -d com.apple.quarantine $(which chromedriver)
-                    ```
-                    
-                    Then try scraping again.
-                    
-                    See `FIX_SCRAPER.md` for more solutions.
-                    """)
-            
-            finally:
-                scraper.close()
-    
-    # Display scraped jobs
+        location = st.text_input("Location", key="add_job_location")
+
+    url = st.text_input("Posting URL (optional)", key="add_job_url")
+    description = st.text_area("Job Description", height=250, key="add_job_description")
+
+    if st.button("Add Job"):
+        if not job_title.strip() or not description.strip():
+            st.error("Please enter at least a job title and a job description")
+        else:
+            new_job = pd.DataFrame([{
+                'title': job_title.strip(),
+                'company': company.strip(),
+                'location': location.strip(),
+                'description': description.strip(),
+                'url': url.strip(),
+            }])
+            existing = st.session_state.jobs_df
+            st.session_state.jobs_df = (
+                new_job if existing is None
+                else pd.concat([existing, new_job], ignore_index=True)
+            )
+            st.success(f"✓ Added '{job_title.strip()}'. {len(st.session_state.jobs_df)} job(s) queued.")
+
     if st.session_state.jobs_df is not None:
-        st.subheader("Scraped Jobs")
+        st.subheader("Queued Jobs")
         st.dataframe(st.session_state.jobs_df, use_container_width=True)
-        
-        # Download button
+
         csv = st.session_state.jobs_df.to_csv(index=False)
         st.download_button(
             label="Download as CSV",
@@ -298,14 +267,13 @@ def tab_upload_jobs():
     """Tab for uploading jobs CSV"""
     st.header("📊 Upload Jobs CSV")
     
-    st.success("✨ **Recommended Method** - Most reliable and gives you full control!")
-    st.info("📝 Use `sample_jobs.csv` as a template. Required columns: title, company, location, description, url")
+    st.info("📝 Required columns: title, company, location, description, url. Only description and title are needed for processing.")
     
     # Show example format
     with st.expander("📋 View CSV Format Example"):
         st.code("""title,company,location,description,url
-Software Engineer,Google,Mountain View,Looking for software engineer with Python...,https://linkedin.com/jobs/123
-Data Scientist,Meta,Remote,Seeking data scientist with ML experience...,https://linkedin.com/jobs/456""", language="csv")
+Software Engineer,Example Corp,Springfield,Looking for software engineer with Python...,https://example.com/jobs/123
+Data Scientist,Sample Inc,Remote,Seeking data scientist with ML experience...,https://example.com/jobs/456""", language="csv")
     
     uploaded_file = st.file_uploader(
         "Upload Jobs CSV",
@@ -333,7 +301,7 @@ def tab_process_jobs():
         return
     
     if st.session_state.jobs_df is None or len(st.session_state.jobs_df) == 0:
-        st.warning("⚠️ Please scrape or upload jobs first (Tab 2 or 3)")
+        st.warning("⚠️ Please add or upload jobs first (Tab 2 or 3)")
         return
     
     # Check LLM availability
@@ -613,7 +581,7 @@ def main():
     # Main tabs
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "📄 Upload Resume",
-        "🔍 Scrape Jobs",
+        "📝 Add Job",
         "📊 Upload Jobs CSV",
         "🤖 Process Jobs",
         "📊 Results"
@@ -623,7 +591,7 @@ def main():
         tab_upload_resume()
     
     with tab2:
-        tab_scrape_jobs()
+        tab_add_job()
     
     with tab3:
         tab_upload_jobs()

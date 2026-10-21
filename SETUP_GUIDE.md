@@ -68,8 +68,8 @@ The app will open in your browser at http://localhost:8501
    - LaTeX templates will preserve your formatting!
 
 2. **Get Jobs** (Tab 2 or 3)
-   - Option A: Scrape LinkedIn (requires manual login)
-   - Option B: Upload your own CSV file
+   - Option A: Paste a job description you are viewing (Tab 2)
+   - Option B: Upload your own CSV file (Tab 3)
 
 3. **Process Jobs** (Tab 4)
    - Select how many jobs to process
@@ -111,11 +111,6 @@ Example LaTeX sections that will be tailored:
 - Use a smaller model (llama2 instead of llama2:13b)
 - Process fewer jobs at once (1-3 instead of 5+)
 - Close other applications using RAM/CPU
-
-### LinkedIn scraper not working
-- Make sure you're logged in when prompted
-- LinkedIn may have rate limits - try again later
-- Use CSV upload instead as a backup
 
 ## Optional: Google Drive Integration
 
