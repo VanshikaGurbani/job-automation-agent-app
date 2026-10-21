@@ -1,0 +1,229 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=0.1 cm,
+    bottom=0.1 cm,
+    left=0.1 cm,
+    right=0.1 cm
+]{geometry}
+
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{primaryColor}{RGB}{0, 79, 144}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Sample Resume (placeholder)},
+    pdfauthor={Alex Example},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage{setspace}
+\setstretch{0.7}
+\usepackage[pscoord]{eso-pic}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+% Ensuring machine readability
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+% Style adjustments
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0cm}
+\makeatletter
+\let\ps@customFooterStyle\ps@plain
+\patchcmd{\ps@customFooterStyle}{\thepage}{}{}{}
+\makeatother
+\pagestyle{customFooterStyle}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing{\section}{-1pt}{0.3 cm}{0.2 cm}
+
+\renewcommand\labelitemi{$\circ$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0.2 cm + 0.00001 cm
+    }{
+        0.2 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\newcommand{\placelastupdatedtext}{%
+  \AddToShipoutPictureFG*{
+    \put(\LenToUnit{\paperwidth-2 cm-0.2 cm+0.05cm},\LenToUnit{\paperheight-1.0 cm}){\vtop{{\null}\makebox[0pt][c]{\small\color{gray}\textit{}}}}
+  }
+}
+
+\let\hrefWithoutArrow\href
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% PLACEHOLDER RESUME. Every name, employer, date and number below is fictional.
+% Replace this file with YOUR OWN resume before running the app, and keep the
+% real file out of version control (see README: "Your resume stays local").
+% The tailor only rewrites the "Core Skills" section; keep that heading.
+% ---------------------------------------------------------------------------
+\placelastupdatedtext
+
+\begin{header}
+    \textbf{\fontsize{24 pt}{24 pt}\selectfont Alex Example}
+
+    \vspace{0.3 cm}
+
+    \normalsize
+    \mbox{{\color{black}\footnotesize\faMapMarker*}\hspace*{0.12cm}Anytown, USA}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{mailto:alex@example.com}{\color{black}{\footnotesize\faEnvelope[regular]}\hspace*{0.12cm}alex@example.com}}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{tel:+1-555-010-0100}{\color{black}{\footnotesize\faPhone*}\hspace*{0.13cm}+1 555 010 0100}}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/your-handle}{\color{black}{\footnotesize\faLinkedinIn}\hspace*{0.12cm}linkedin.com/in/your-handle}}%
+    \kern 0.25 cm%
+    \mbox{\hrefWithoutArrow{https://github.com/your-handle}{\color{black}{\footnotesize\faGithub}\hspace*{0.12cm}your-handle}}%
+\end{header}
+
+
+\section{Education}
+
+\begin{twocolentry}{\textit{May 2020}}
+    \textbf{Example University} \
+    \textit{M.S. in Data Science} \
+    {\footnotesize \textit{Relevant Coursework: Machine Learning, Statistics, Databases}}
+\end{twocolentry}
+
+
+\section{Work Experience}
+
+\begin{twocolentry}{
+    \textit{Springfield, USA}\
+    \textit{Jan 2021 -- Present}
+}
+    \textbf{Software Engineer} \
+    \textit{Example Corp}
+\end{twocolentry}
+
+\begin{onecolentry}
+\begin{highlights}
+\item Built REST APIs in \textbf{Python} and \textbf{Flask} backed by \textbf{PostgreSQL} for an internal reporting tool.
+\item Wrote unit and integration tests and set up a CI pipeline that ran them on every pull request.
+\item Reduced a nightly batch job's runtime from 40 to 25 minutes by profiling and removing redundant queries.
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2 cm}
+
+\begin{twocolentry}{
+    \textit{Springfield, USA}\
+    \textit{Jun 2020 -- Dec 2020}
+}
+    \textbf{Data Analyst Intern} \
+    \textit{Sample Analytics LLC}
+\end{twocolentry}
+
+\begin{onecolentry}
+\begin{highlights}
+\item Cleaned and joined sales datasets with \textbf{pandas} and \textbf{SQL} to produce weekly dashboards.
+\item Presented findings to a team of five analysts and documented the analysis steps.
+\end{highlights}
+\end{onecolentry}
+
+
+\section*{Projects}
+
+\begin{twocolentry}{
+        \textit{Anytown, USA}
+
+        \textit{Jan 2020 -- Mar 2020}}
+            \textbf{Sample Classifier \href{https://github.com/your-handle/sample-project}{\faGithub}}
+
+            \textit{Independent Project}
+        \end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Trained and evaluated a logistic regression and a random forest classifier with \textbf{scikit-learn} on a public tabular dataset.
+                \item Reported precision, recall and a confusion matrix on a held-out test set.
+            \end{highlights}
+        \end{onecolentry}
+
+
+\section*{Core Skills}
+
+
+\begin{small}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Programming \& Tools:} Python, SQL, Git, Docker, RESTful APIs
+  \item \textbf{Data \& ML:} pandas, scikit-learn, PostgreSQL, data cleaning, model evaluation
+  \item \textbf{Cloud \& DevOps:} CI/CD, Linux
+  \item \textbf{Core Competencies:} Problem Solving, Communication, Documentation
+\end{itemize}
+\end{small}
+\end{document}
