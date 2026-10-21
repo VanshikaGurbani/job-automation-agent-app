@@ -21,11 +21,6 @@ GOOGLE_DRIVE_TOKEN_FILE = 'token.json'
 
 # Application Settings
 OUTPUT_FOLDER = 'outputs'
-JOBS_CSV_FILE = 'scraped_jobs.csv'
-
-# LinkedIn Scraper Settings
-LINKEDIN_JOBS_URL = 'https://www.linkedin.com/jobs/search/'
-SCRAPE_DELAY = 2  # Seconds to wait between requests
 
 # Job Match Thresholds
 EXCELLENT_MATCH = 80
